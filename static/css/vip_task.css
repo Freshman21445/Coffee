@@ -1,1 +1,132 @@
 
+/* ==========================================================
+   Task cards
+   ========================================================== */
+
+/* ==========================================================
+   Task summary strip
+   ========================================================== */
+
+.task-summary-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1.1rem 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.task-summary-divider {
+    width: 1px;
+    height: 30px;
+    background: var(--border);
+}
+
+.task-summary-item {
+    text-align: center;
+}
+
+.task-summary-item span {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.task-summary-item label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.task-summary-highlight span {
+    color: var(--green);
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.task-card {
+    padding: 1.1rem;
+}
+
+.task-card-completed {
+    opacity: 0.75;
+}
+
+.task-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.9rem;
+}
+
+.task-name {
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.task-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+}
+
+.task-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+    padding: 0.6rem 0.3rem;
+    background: var(--card-bg-alt);
+    border-radius: var(--radius-sm);
+}
+
+.task-stat span {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.task-stat b {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.task-claimed {
+    color: var(--green) !important;
+}
+
+.task-progress-track {
+    height: 6px;
+    border-radius: 6px;
+    background: var(--card-bg-alt);
+    overflow: hidden;
+    margin-bottom: 0.9rem;
+}
+
+.task-progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}
+
+.task-remove-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task-remove-btn {
+    background: none;
+    border: none;
+    color: var(--red);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+}
