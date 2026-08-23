@@ -1002,58 +1002,7 @@ confirmForm.addEventListener("submit", async (e) => {
     }
 });
 
-const submitBtn = confirmForm.querySelector("button");
-const originalText = submitBtn.textContent;
-submitBtn.disabled = true;
-submitBtn.textContent = "Processing...";
 
-try {
-const res = await fetch(pendingPlan.buyUrl, {
-method: "POST",
-headers: {
-"X-Requested-With": "XMLHttpRequest",
-"X-FormToken": window.FORM_TOKEN || "",
-},
-});
-
-if (res.ok) {
-confirmPopup.classList.remove("visible");
-
-document.getElementById("success-plan-name").textContent = pendingPlan.name;
-document.getElementById("success-plan-price").textContent = pendingPlan.price + " ETB";
-document.getElementById("success-plan-daily").textContent = pendingPlan.daily + " ETB";
-document.getElementById("success-plan-total").textContent = pendingPlan.total + " ETB";
-
-successPopup.classList.add("visible");
-fireConfetti();
-} else {
-const realForm = document.createElement("form");
-realForm.method = "POST";
-realForm.action = pendingPlan.buyUrl;
-const csrfInput = document.createElement("input");
-csrfInput.type = "hidden";
-csrfInput.name = "csrf_token";
-csrfInput.value = window.FORM_TOKEN || "";
-realForm.appendChild(csrfInput);
-document.body.appendChild(realForm);
-realForm.submit();
-}
-} catch (err) {
-const realForm = document.createElement("form");
-realForm.method = "POST";
-realForm.action = pendingPlan.buyUrl;
-const csrfInput = document.createElement("input");
-csrfInput.type = "hidden";
-csrfInput.name = "csrf_token";
-csrfInput.value = window.FORM_TOKEN || "";
-realForm.appendChild(csrfInput);
-document.body.appendChild(realForm);
-realForm.submit();
-} finally {
-submitBtn.disabled = false;
-submitBtn.textContent = originalText;
-}
-});
 
 successClose.addEventListener("click", () => {
 successPopup.classList.remove("visible");
