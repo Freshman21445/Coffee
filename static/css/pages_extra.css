@@ -1,1 +1,442 @@
 
+
+/* ==========================================================
+   Form sections (recharge, withdraw, bindbank, etc.)
+   ========================================================== */
+
+.form-section {
+    padding: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.form-section-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.85rem;
+}
+
+.field-hint {
+    font-size: 0.76rem;
+    color: var(--text-light);
+    margin-top: 0.4rem;
+}
+
+.notice-box {
+    text-align: center;
+    padding: 1.75rem 1.25rem;
+}
+
+.notice-box p {
+    color: var(--text-light);
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+}
+
+/* Amount chips */
+.amount-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+}
+
+.amount-chip {
+    padding: 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--card-bg-alt);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.amount-chip.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+/* Bank selection */
+.bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.bank-option {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.bank-option.selected {
+    border-color: var(--primary);
+    background: var(--card-bg-alt);
+}
+
+.bank-option input {
+    width: auto;
+    accent-color: var(--primary);
+}
+
+.bank-option-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.bank-detail-box {
+    background: var(--card-bg-alt);
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1rem;
+    margin-top: 0.75rem;
+}
+
+.bank-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+}
+
+.bank-detail-row span {
+    color: var(--text-light);
+}
+
+.bank-detail-row b {
+    font-weight: 700;
+}
+
+/* Screenshot preview */
+.screenshot-preview {
+    margin-top: 0.75rem;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.screenshot-preview img {
+    width: 100%;
+    display: block;
+    max-height: 220px;
+    object-fit: cover;
+}
+
+/* Mini record rows (recent requests, redemption history) */
+.mini-record-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.mini-record-row:last-child {
+    border-bottom: none;
+}
+
+.mini-record-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.mini-record-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.15rem;
+}
+
+.mini-record-amount {
+    font-weight: 700;
+    color: var(--green);
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background: rgba(217, 119, 6, 0.12);
+    color: var(--gold);
+}
+
+.status-approved, .status-paid {
+    background: rgba(22, 163, 74, 0.12);
+    color: var(--green);
+}
+
+.status-rejected {
+    background: rgba(220, 38, 38, 0.12);
+    color: var(--red);
+}
+
+/* Balance mini card (withdraw page) */
+.balance-mini-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.balance-mini-card span {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.balance-mini-card b {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* ==========================================================
+   Check-in page
+   ========================================================== */
+
+.checkin-hero-gradient {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 2rem 1.5rem 1.75rem;
+    margin-bottom: 1.25rem;
+    background: var(--gradient-gold);
+    border-radius: var(--radius);
+    box-shadow: 0 16px 32px rgba(217, 154, 61, 0.28), 0 4px 10px rgba(217, 154, 61, 0.18);
+}
+
+.checkin-hero-glow {
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+}
+
+.checkin-reward-amount {
+    position: relative;
+    z-index: 2;
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #2b2013;
+}
+
+.checkin-reward-label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.82rem;
+    color: rgba(43,32,19,0.75);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+.checkin-claim-btn {
+    position: relative;
+    z-index: 2;
+    background: #2b2013;
+    color: #fffdf9;
+    box-shadow: 0 6px 16px rgba(43,32,19,0.35);
+}
+
+.checkin-claim-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.checkin-points-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+.checkin-points-card span {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.checkin-points-card b {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-right: 0.75rem;
+}
+
+.checkin-exchange-btn {
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+}
+
+.checkin-strip-card {
+    padding: 1.1rem 0.9rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.checkin-strip {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.25rem 1rem;
+}
+
+.checkin-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.checkin-day-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--card-bg-alt);
+}
+
+.checkin-day-done .checkin-day-dot {
+    background: var(--gradient-primary);
+    border-color: transparent;
+}
+
+.checkin-day-today .checkin-day-dot {
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.18);
+}
+
+.checkin-day-label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.checkin-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0.3rem 0.15rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+}
+
+.checkin-total b {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* ==========================================================
+   Gift code page
+   ========================================================== */
+
+.gift-hero {
+    text-align: center;
+    padding: 1.75rem 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.gift-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gradient-gold);
+    color: #2b2013;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.9rem;
+    box-shadow: var(--shadow-md);
+}
+
+.gift-hero p {
+    color: var(--text-light);
+    font-size: 0.88rem;
+    margin-bottom: 1.1rem;
+}
+
+.gift-form {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.gift-form input {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.gift-form .btn {
+    width: auto;
+    padding: 0 1.25rem;
+    white-space: nowrap;
+}
+
+/* ==========================================================
+   Service page
+   ========================================================== */
+
+.service-card {
+    padding: 1.1rem 1.15rem;
+    margin-bottom: 0.85rem;
+}
+
+.service-group-card {
+    padding: 1.1rem 1.15rem;
+    margin-bottom: 1.25rem;
+}
+
+.service-row-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1rem 0;
+}
+
+.service-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.service-label {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 0.2rem;
+}
+
+.service-value {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.service-btn {
+    width: auto;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.service-dev {
+    opacity: 0.92;
+  }
+  
