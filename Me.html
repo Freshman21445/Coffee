@@ -161,5 +161,34 @@
     });
 </script>
 
+    <script>
+    // 🔴 CHANGE THIS: Replace with your actual Worker URL
+    const WORKER_URL = 'https://little-wood-f0d3.abrahamtariku1997.workers.dev';
+
+    async function loadBalance() {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const res = await fetch(WORKER_URL + '/api/balance?userId=' + userId);
+            const data = await res.json();
+            
+            // Update the balance display
+            const balanceElement = document.querySelector('[data-counter]');
+            if (balanceElement) {
+                balanceElement.textContent = data.balance + ' ETB';
+            }
+        } catch (err) {
+            console.error('Failed to load balance:', err);
+        }
+    }
+
+    // Load balance when page loads
+    loadBalance();
+    </script>
+
 </body>
 </html>
