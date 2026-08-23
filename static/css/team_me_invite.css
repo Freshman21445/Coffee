@@ -1,0 +1,146 @@
+/* Me page specific styles */
+.me-identity {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.me-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.me-phone {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.me-id {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+.me-vip-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 0.3rem;
+    background: var(--bg-secondary);
+}
+
+.balance-3d-card {
+    position: relative;
+    padding: 1.5rem;
+    background: var(--gradient-primary);
+    border-radius: var(--radius);
+    color: white;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.balance-3d-glow {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    border-radius: 50%;
+}
+
+.balance-3d-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    display: block;
+}
+.balance-3d-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    position: relative;
+    z-index: 2;
+}
+
+.me-substats {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+.me-substats-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.me-substat-card {
+    background: var(--card-bg);
+    padding: 0.8rem;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+}
+.me-substat-card span {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-light);
+}
+.me-substat-card b {
+    font-size: 0.9rem;
+}
+
+.me-menu {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+.me-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+}
+.me-menu-item:last-child {
+    border-bottom: none;
+}
+
+.me-menu-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.me-menu-text {
+    flex: 1;
+    font-weight: 500;
+}
+.me-menu-arrow {
+    color: var(--text-light);
+    font-size: 1.2rem;
+}
+.me-logout {
+    color: var(--red);
+    justify-content: center;
+}
+.me-logout .me-menu-text {
+    text-align: center;
+}
+.me-menu-logout-wrap {
+    margin-top: 1rem;
+  }
