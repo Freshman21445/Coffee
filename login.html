@@ -5,78 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login</title>
     <!-- Apply saved theme immediately -->
-    <script>
-        (function () {
-            var t = localStorage.getItem("thecoffee-theme") || "dark";
-            document.documentElement.setAttribute("data-theme", t);
-        })();
-    </script>
-    <!-- CSS: No leading slash! -->
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/main.css">
-    <!-- Login page specific styles -->
-    <style>
-        .login-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-card {
-            padding: 2rem 1.5rem;
-            width: 100%;
-        }
-        .login-card h1 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-        .login-footer a {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .login-bonus {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 1rem;
-            padding: 0.5rem;
-            background: var(--card-bg-alt);
-            border-radius: var(--radius-sm);
-        }
-    </style>
-</head>
-<body class="page-body">
-    <div class="login-container">
-        <div class="card-3d login-card">
-            <h1>☕ Login</h1>
-            <form id="login-form">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="your@email.com" required>
-                <label>Password</label>
-                <input type="password" id="password" placeholder="••••••••" required>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <div class="login-footer">
-                Don't have an account? <a href="register.html">Register</a>
-            </div>
-            <div class="login-bonus">
-                🎉 New users get 1,000 ETB free!
-            </div>
-        </div>
-    </div>
+<script>
+    const WORKER_URL = 'https://little-wood-f0d3.abrahamtariku1997.workers.dev';
 
-    <!-- 🔴 JavaScript: These bring the ambient background and theme -->
-    <script src="static/js/theme.js"></script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const res = await fetch(WORKER_URL + '/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            // 🔴 1. Check if the response is NOT ok (401, 500, etc.)
+            if (!res.ok) {
+                const errorText = await res.text();
+                alert('❌ Server Error (' + res.status + '): ' + errorText);
+                return;
+            }
+
+            // 🔴 2. Try to parse the JSON
+            const data = await res.json();
+
+            if (data.success) {
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('balance', data.balance);
+                window.location.href = 'index.html';
+            } else {
+                // 🔴 3. Show the specific error from the server
+                alert('❌ Login failed: ' + (data.error || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('🌐 Network error: ' + err.message);
+        }
+    });
+</script> src="static/js/theme.js"></script>
     <script src="static/js/interactive.js"></script>
 
     <script>
