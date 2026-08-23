@@ -942,9 +942,63 @@ confirmPopup.addEventListener("click", (e) => {
 if (e.target === confirmPopup) confirmPopup.classList.remove("visible");
 });
 
+// 🔴 CHANGE THIS: Replace with your actual Worker URL
+const WORKER_URL = 'https://little-wood-f0d3.abrahamtariku1997.workers.dev';
+
 confirmForm.addEventListener("submit", async (e) => {
-e.preventDefault();
-if (!pendingPlan) return;
+    e.preventDefault();
+    if (!pendingPlan) return;
+
+    const submitBtn = confirmForm.querySelector("button");
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Processing...";
+
+    try {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert('Please login first');
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const price = parseFloat(pendingPlan.price.replace(/,/g, ''));
+
+        const res = await fetch(WORKER_URL + '/api/vip/buy', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userId: userId,
+                planId: parseInt(pendingPlan.planId),
+                price: price
+            })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            confirmPopup.classList.remove("visible");
+
+            document.getElementById("success-plan-name").textContent = pendingPlan.name;
+            document.getElementById("success-plan-price").textContent = pendingPlan.price + " ETB";
+            document.getElementById("success-plan-daily").textContent = pendingPlan.daily + " ETB";
+            document.getElementById("success-plan-total").textContent = pendingPlan.total + " ETB";
+
+            successPopup.classList.add("visible");
+            fireConfetti();
+
+            // Update balance in localStorage
+            localStorage.setItem('balance', data.balance);
+        } else {
+            alert(data.error || 'Purchase failed');
+        }
+    } catch (err) {
+        alert('Network error: ' + err.message);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+});
 
 const submitBtn = confirmForm.querySelector("button");
 const originalText = submitBtn.textContent;
