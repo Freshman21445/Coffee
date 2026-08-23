@@ -1,29 +1,106 @@
-/* General page layout for all internal pages */
-.page-wrap {
-    padding: 1rem 1.25rem 2rem;
-    max-width: 480px;
-    margin: 0 auto;
+
+.page-body {
+    background: var(--bg);
+    min-height: 100vh;
+    padding-bottom: 1.5rem;
 }
 
+.page-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 1rem 1rem 0.5rem;
+}
+
+.page-flash {
+    max-width: 480px;
+    margin: 0.75rem auto 0;
+    padding: 0 1rem;
+}
+
+/* ---------- Shared page header (used on vip/team/task/me/etc) ---------- */
 .page-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.5rem;
-    padding-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding-top: 0.25rem;
 }
 
 .page-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 800;
-    margin: 0;
 }
 
+/* ---------- Section title (shared across pages) ---------- */
 .section-title {
-    font-size: 0.85rem;
     font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0 0.1rem 0.6rem;
+    color: var(--text);
+}
+
+/* ---------- Popup overlay system (used by VIP confirm/success popups) ---------- */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 14, 26, 0.55);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.popup-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-card {
+    max-width: 340px;
+    width: 100%;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    transform: scale(0.9) translateY(10px);
+    transition: transform 0.25s ease;
+}
+
+.popup-overlay.visible .popup-card {
+    transform: scale(1) translateY(0);
+}
+
+.popup-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.popup-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+
+.popup-card p {
+    font-size: 0.85rem;
     color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 1.5rem 0 0.75rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+.popup-channel-btn {
+    margin-bottom: 0.75rem;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    padding: 0.4rem;
 }
