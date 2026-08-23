@@ -1,1 +1,138 @@
 
+/* ==========================================================
+   Step wizard (Recharge, Withdraw, Bind Bank)
+   ========================================================== */
+
+.wizard-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.2rem;
+}
+
+.wizard-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    position: relative;
+}
+
+.wizard-progress-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--card-bg-alt);
+    border: 2px solid var(--border);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.wizard-progress-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.wizard-progress-line {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    z-index: 1;
+}
+
+.wizard-progress-step:last-child .wizard-progress-line {
+    display: none;
+}
+
+.wizard-progress-step.is-active .wizard-progress-dot {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: #2b2013;
+    transform: scale(1.1);
+}
+
+.wizard-progress-step.is-active .wizard-progress-label {
+    color: var(--text);
+}
+
+.wizard-progress-step.is-done .wizard-progress-dot {
+    background: var(--green);
+    border-color: transparent;
+    color: white;
+}
+
+.wizard-progress-step.is-done .wizard-progress-line {
+    background: var(--green);
+}
+
+/* Step panels â€” only one visible at a time */
+.wizard-panel {
+    display: none;
+}
+
+.wizard-panel.is-active {
+    display: block;
+    animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.wizard-nav-row {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+}
+
+.wizard-nav-row .btn {
+    margin-top: 0;
+}
+
+.wizard-btn-back {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0.85rem 1.4rem;
+}
+
+.wizard-btn-next {
+    flex: 1;
+}
+
+/* Review/summary step */
+.wizard-review-box {
+    background: var(--card-bg-alt);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.wizard-review-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.87rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.wizard-review-row:last-child {
+    border-bottom: none;
+}
+
+.wizard-review-row span {
+    color: var(--text-light);
+}
+
+.wizard-review-row b {
+    font-weight: 700;
+    text-align: right;
+}
