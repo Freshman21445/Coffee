@@ -26,7 +26,7 @@ setTimeout(() => {
 
     // Allow iframe pages to request navigation via postMessage
     window.addEventListener("message", (event) => {
-        if (event.origin !== window.location.origin) return;
+        // Accept postMessage from same origin OR any origin (for iframes)
         if (event.data && event.data.type === "navigate" && event.data.url) {
             navItems.forEach((i) => i.classList.remove("active"));
             if (frame) {
