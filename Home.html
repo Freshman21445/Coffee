@@ -468,63 +468,60 @@ Complete your first recharge to start earning daily profit.</p>
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    // ---------- Feature icon routing (parent shell swaps iframe src) ----------
+const targetRoutes = {
+    recharge: "/app/recharge",
+    withdraw: "/app/withdraw",
+    checkin: "/app/checkin",
+    gift: "/app/gift",
+    service: "/app/service",
+};
 
-        // ---------- Feature icon routing (parent shell swaps iframe src) ----------
-        const targetRoutes = {
-            recharge: "/app/recharge",
-            withdraw: "/app/withdraw",
-            checkin: "/app/checkin",
-            gift: "/app/gift",
-            service: "/app/service",
-        };
-
-        document.querySelectorAll(".home-feature-item").forEach((item) => {
-            item.addEventListener("click", (e) => {
-                e.preventDefault();
-                const target = item.dataset.target;
-                const url = targetRoutes[target];
-                if (url && window.parent && window.parent !== window) {
-                    window.parent.postMessage({ type: "navigate", url: url }, "*");
-                } else if (url) {
-                    window.location.href = url;
-                }
-            });
-        });
-
-        // ---------- Bell icon: open notifications feed ----------
-        const bellBtn = document.getElementById("home-bell-btn");
-        if (bellBtn) {
-            bellBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                const url = bellBtn.dataset.navigate;
-                if (window.parent && window.parent !== window) {
-                    window.parent.postMessage({ type: "navigate", url: url }, "*");
-                } else {
-                    window.location.href = url;
-                }
-            });
-        }
-
-        // ---------- Welcome popup (show once per browser session) ----------
-        const popup = document.getElementById("welcome-popup");
-        const closeBtn = document.getElementById("popup-close-btn");
-
-        if (popup) {
-            const alreadyShown = sessionStorage.getItem("thecoffee-popup-shown");
-            if (!alreadyShown) {
-                setTimeout(() => popup.classList.add("visible"), 350);
-                sessionStorage.setItem("thecoffee-popup-shown", "1");
-            }
-
-            closeBtn.addEventListener("click", () => {
-                popup.classList.remove("visible");
-            });
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) popup.classList.remove("visible");
-            });
+document.querySelectorAll(".home-feature-item").forEach((item) => {
+    item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = item.dataset.target;
+        const url = targetRoutes[target];
+        if (url && window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: "navigate", url: url }, "*");
+        } else if (url) {
+            window.location.href = url;
         }
     });
+});
+
+// ---------- Bell icon: open notifications feed ----------
+const bellBtn = document.getElementById("home-bell-btn");
+if (bellBtn) {
+    bellBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const url = bellBtn.dataset.navigate;
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: "navigate", url: url }, "*");
+        } else {
+            window.location.href = url;
+        }
+    });
+}
+
+// ---------- Welcome popup (show once per browser session) ----------
+const popup = document.getElementById("welcome-popup");
+const closeBtn = document.getElementById("popup-close-btn");
+
+if (popup) {
+    const alreadyShown = sessionStorage.getItem("thecoffee-popup-shown");
+    if (!alreadyShown) {
+        setTimeout(() => popup.classList.add("visible"), 350);
+        sessionStorage.setItem("thecoffee-popup-shown", "1");
+    }
+
+    closeBtn.addEventListener("click", () => {
+        popup.classList.remove("visible");
+    });
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) popup.classList.remove("visible");
+    });
+}
 </script>
     <script src="static/js/theme.js"></script>
 <script src="static/js/interactive.js"></script>
