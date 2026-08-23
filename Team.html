@@ -1,0 +1,602 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Team</title>
+<script>
+    (function () {
+        var t = localStorage.getItem("thecoffee-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", t);
+    })();
+</script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/pages.css">
+<link rel="stylesheet" href="/static/css/pages_extra.css">
+<link rel="stylesheet" href="/static/css/vip_task.css">
+<link rel="stylesheet" href="/static/css/team_me_invite.css">
+<link rel="stylesheet" href="/static/css/final_pages.css">
+<link rel="stylesheet" href="/static/css/wizard.css">
+
+<style>
+    /* ==========================================================
+       Team page -- internal styles (self-contained, no external
+       CSS file dependency)
+       ========================================================== */
+
+    .team-hero-gradient {
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-primary);
+        border-radius: var(--radius);
+        padding: 1.75rem 1.5rem;
+        margin-bottom: 1.25rem;
+        text-align: center;
+        box-shadow: 0 16px 32px rgba(180, 118, 42, 0.28), 0 4px 10px rgba(180, 118, 42, 0.18);
+    }
+
+    .team-hero-glow {
+        position: absolute;
+        top: -50px;
+        right: -30px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, transparent 70%);
+    }
+
+    .team-hero-gradient-label {
+        position: relative;
+        z-index: 2;
+        display: block;
+        color: rgba(43,32,19,0.75);
+        font-size: 0.82rem;
+        font-weight: 700;
+    }
+
+    .team-hero-gradient-value {
+        position: relative;
+        z-index: 2;
+        color: #2b2013;
+        font-size: 2.3rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin: 0.2rem 0 1.1rem;
+    }
+
+    .team-hero-earnings-row {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(43,32,19,0.15);
+    }
+
+    .team-hero-earning-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .team-hero-earning-item span {
+        font-size: 0.7rem;
+        color: rgba(43,32,19,0.7);
+        font-weight: 600;
+    }
+
+    .team-hero-earning-item b {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #2b2013;
+    }
+
+    .team-hero-earning-divider {
+        width: 1px;
+        height: 26px;
+        background: rgba(43,32,19,0.15);
+    }
+
+    .team-level-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .team-level-card {
+        text-align: center;
+        padding: 1rem 0.5rem;
+    }
+
+    .team-level-count {
+        font-size: 1.3rem;
+        font-weight: 800;
+    }
+
+    .team-level-label {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        font-weight: 600;
+        margin-top: 0.15rem;
+    }
+
+    .team-level-percent {
+        font-size: 0.68rem;
+        color: var(--primary);
+        font-weight: 700;
+        margin-top: 0.35rem;
+    }
+
+    /* ---------- Recharge / Withdraw / Assets detail rows ---------- */
+    .team-detail-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .team-detail-card {
+        padding: 0.9rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .team-detail-card span {
+        font-size: 0.72rem;
+        color: var(--text-light);
+        font-weight: 600;
+    }
+
+    .team-detail-card b {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    .team-detail-card.is-total b {
+        color: var(--green);
+    }
+
+    /* ---------- Top rechargers leaderboard ---------- */
+    .team-leaderboard {
+        padding: 0.4rem 0;
+        margin-bottom: 1.25rem;
+    }
+
+    .team-leaderboard-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.7rem 1.1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .team-leaderboard-row:last-child {
+        border-bottom: none;
+    }
+
+    .team-leaderboard-rank {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--card-bg-alt);
+        color: var(--text-light);
+        font-size: 0.72rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .team-leaderboard-row:nth-child(1) .team-leaderboard-rank {
+        background: var(--gradient-gold);
+        color: #2b2013;
+    }
+
+    .team-leaderboard-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .team-leaderboard-phone {
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+
+    .team-leaderboard-vip {
+        font-size: 0.72rem;
+        color: var(--text-light);
+        margin-top: 0.1rem;
+    }
+
+    .team-leaderboard-amount {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: var(--primary);
+        flex-shrink: 0;
+    }
+
+    /* ---------- Collapsible team member groups ---------- */
+    .team-member-group {
+        margin-bottom: 0.85rem;
+        overflow: hidden;
+    }
+
+    .team-member-group-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem 1.1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .team-member-group-header b {
+        color: var(--text-light);
+        font-weight: 600;
+    }
+
+    .team-member-chevron {
+        color: var(--text-light);
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-size: 0.85rem;
+    }
+
+    .team-member-group-header-open .team-member-chevron {
+        transform: rotate(180deg);
+    }
+
+    .team-member-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .team-member-list-open {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    .team-member-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.7rem 1.1rem;
+        border-top: 1px solid var(--border);
+    }
+
+    .team-member-main {
+        min-width: 0;
+    }
+
+    .team-member-phone {
+        font-size: 0.84rem;
+        font-weight: 700;
+    }
+
+    .team-member-meta {
+        font-size: 0.7rem;
+        color: var(--text-light);
+        margin-top: 0.1rem;
+    }
+
+    .team-member-side {
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    .team-member-recharge {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .team-member-vip {
+        font-size: 0.68rem;
+        color: var(--green);
+        font-weight: 600;
+        margin-top: 0.15rem;
+    }
+
+    .team-member-inactive {
+        color: var(--text-light);
+    }
+
+    .team-member-empty {
+        padding: 1.25rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-light);
+        border-top: 1px solid var(--border);
+    }
+
+    .invite-link-card {
+        padding: 1.1rem;
+        text-align: center;
+    }
+
+    .invite-link-box {
+        background: var(--card-bg-alt);
+        border: 1px dashed var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.7rem 0.9rem;
+        margin: 0.85rem 0;
+        font-size: 0.78rem;
+        color: var(--text-light);
+        word-break: break-all;
+        text-align: left;
+    }
+
+    .invite-action-row {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Small-phone tweaks */
+    @media (max-width: 360px) {
+        .team-hero-gradient-value { font-size: 1.9rem; }
+        .team-hero-earnings-row { gap: 0.9rem; }
+        .team-level-grid { gap: 0.4rem; }
+        .invite-action-row { flex-direction: column; }
+    }
+</style>
+
+</head>
+<body class="page-body">
+
+
+    
+
+
+
+<div class="page-wrap stagger">
+    <div class="page-header">
+        <h1>My Team</h1>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <span class="toggle-knob"></span>
+        </button>
+    </div>
+
+    <div class="team-hero-gradient tilt-card">
+        <div class="team-hero-glow"></div>
+        <span class="team-hero-gradient-label">Total Team Members</span>
+        <div class="team-hero-gradient-value"><span data-counter="0" data-counter-decimals="0">0</span></div>
+        <div class="team-hero-earnings-row">
+            <div class="team-hero-earning-item">
+                <span>Invitation Earnings</span>
+                <b>0.00 ETB</b>
+            </div>
+            <div class="team-hero-earning-divider"></div>
+            <div class="team-hero-earning-item">
+                <span>Team Earnings</span>
+                <b>0.00 ETB</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Referral Levels</div>
+    <div class="team-level-grid">
+        <div class="card-3d team-level-card">
+            <div class="team-level-count"><span data-counter="0" data-counter-decimals="0">0</span></div>
+            <div class="team-level-label">Level 1</div>
+            <div class="team-level-percent">10% reward</div>
+        </div>
+        <div class="card-3d team-level-card">
+            <div class="team-level-count"><span data-counter="0" data-counter-decimals="0">0</span></div>
+            <div class="team-level-label">Level 2</div>
+            <div class="team-level-percent">3% reward</div>
+        </div>
+        <div class="card-3d team-level-card">
+            <div class="team-level-count"><span data-counter="0" data-counter-decimals="0">0</span></div>
+            <div class="team-level-label">Level 3</div>
+            <div class="team-level-percent">2% reward</div>
+        </div>
+    </div>
+
+    <div class="section-title">Commission Earned by Level</div>
+    <div class="team-detail-row">
+        <div class="card-3d team-detail-card">
+            <span>Level 1</span>
+            <b>0.00 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 2</span>
+            <b>0.00 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 3</span>
+            <b>0.00 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card is-total">
+            <span>Total Commission</span>
+            <b>0.00 ETB</b>
+        </div>
+    </div>
+
+    <div class="section-title">Recharge by Level</div>
+    <div class="team-detail-row">
+        <div class="card-3d team-detail-card">
+            <span>Level 1</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 2</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 3</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card is-total">
+            <span>Total Recharge</span>
+            <b>0 ETB</b>
+        </div>
+    </div>
+
+    <div class="section-title">Withdraw by Level</div>
+    <div class="team-detail-row">
+        <div class="card-3d team-detail-card">
+            <span>Level 1</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 2</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 3</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card is-total">
+            <span>Total Withdraw</span>
+            <b>0 ETB</b>
+        </div>
+    </div>
+
+    <div class="section-title">Assets by Level</div>
+    <p style="color: var(--text-light, #888); font-size: 0.8rem; margin: -0.5rem 0 0.75rem;">Based on: VIP Purchase Price Total (lifetime)</p>
+    <div class="team-detail-row">
+        <div class="card-3d team-detail-card">
+            <span>Level 1</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 2</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card">
+            <span>Level 3</span>
+            <b>0 ETB</b>
+        </div>
+        <div class="card-3d team-detail-card is-total">
+            <span>Total Assets</span>
+            <b>0 ETB</b>
+        </div>
+    </div>
+
+    
+
+    <div class="section-title">Team Members</div>
+
+    <div class="team-member-group card-3d">
+        <button type="button" class="team-member-group-header" data-target="level1-members">
+            <span>Level 1 <b>(0)</b></span>
+            <span class="team-member-chevron">&#9662;</span>
+        </button>
+        <div class="team-member-list" id="level1-members">
+            
+            <div class="team-member-empty">No Level 1 members yet.</div>
+            
+        </div>
+    </div>
+
+    <div class="team-member-group card-3d">
+        <button type="button" class="team-member-group-header" data-target="level2-members">
+            <span>Level 2 <b>(0)</b></span>
+            <span class="team-member-chevron">&#9662;</span>
+        </button>
+        <div class="team-member-list" id="level2-members">
+            
+            <div class="team-member-empty">No Level 2 members yet.</div>
+            
+        </div>
+    </div>
+
+    <div class="team-member-group card-3d">
+        <button type="button" class="team-member-group-header" data-target="level3-members">
+            <span>Level 3 <b>(0)</b></span>
+            <span class="team-member-chevron">&#9662;</span>
+        </button>
+        <div class="team-member-list" id="level3-members">
+            
+            <div class="team-member-empty">No Level 3 members yet.</div>
+            
+        </div>
+    </div>
+
+    <div class="section-title">Grow Your Team</div>
+    <div class="card-3d invite-link-card">
+        <div class="invite-link-box">
+            <span id="team-invite-link">https://isocoffeemake.online/auth?ref=8ORKPSUC</span>
+        </div>
+        <div class="invite-action-row">
+            <button type="button" class="btn btn-primary" id="team-copy-btn">Copy Link</button>
+            <a href="#" data-navigate="/app/invite" class="btn btn-outline">Full Details</a>
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/js/theme.js"></script>
+<script src="/static/js/interactive.js"></script>
+<script>
+    // Auto-attach the form token to every POST form on the page, so
+    // individual page templates don't each need a hidden input for it.
+    (function () {
+        var token = "05f1b4dee40ac81a6c8df4df0d768381b245d57dce580afc062f4b033fc3ee56";
+        window.FORM_TOKEN = token;
+        document.querySelectorAll("form").forEach(function (form) {
+            var method = (form.getAttribute("method") || "GET").toUpperCase();
+            if (method !== "POST") return;
+            if (form.querySelector('input[name="csrf_token"]')) return;
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "csrf_token";
+            input.value = token;
+            form.appendChild(input);
+        });
+    })();
+</script>
+
+<script src="/static/js/nav_helper.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Collapsible team member groups
+        document.querySelectorAll(".team-member-group-header").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const target = document.getElementById(btn.dataset.target);
+                const isOpen = target.classList.toggle("team-member-list-open");
+                btn.classList.toggle("team-member-group-header-open", isOpen);
+            });
+        });
+        // Open Level 1 by default since it's usually the most relevant
+        const first = document.getElementById("level1-members");
+        const firstBtn = document.querySelector('[data-target="level1-members"]');
+        if (first && firstBtn) {
+            first.classList.add("team-member-list-open");
+            firstBtn.classList.add("team-member-group-header-open");
+        }
+
+        // Copy invite link
+        const copyBtn = document.getElementById("team-copy-btn");
+        const linkEl = document.getElementById("team-invite-link");
+        if (copyBtn && linkEl) {
+            copyBtn.addEventListener("click", async () => {
+                try {
+                    await navigator.clipboard.writeText(linkEl.textContent.trim());
+                    const original = copyBtn.textContent;
+                    copyBtn.textContent = "Copied!";
+                    setTimeout(() => { copyBtn.textContent = original; }, 1500);
+                } catch (err) {
+                    console.error("Copy failed", err);
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

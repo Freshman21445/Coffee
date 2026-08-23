@@ -1,0 +1,1026 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VIP Plans</title>
+<script>
+(function () {
+var t = localStorage.getItem("thecoffee-theme") || "dark";
+document.documentElement.setAttribute("data-theme", t);
+})();
+</script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/pages.css">
+<link rel="stylesheet" href="/static/css/pages_extra.css">
+<link rel="stylesheet" href="/static/css/vip_task.css">
+<link rel="stylesheet" href="/static/css/team_me_invite.css">
+<link rel="stylesheet" href="/static/css/final_pages.css">
+<link rel="stylesheet" href="/static/css/wizard.css">
+
+<style>
+.vip-balance-card {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.1rem 1.25rem;
+margin-bottom: 1.25rem;
+}
+
+.vip-balance-card span {
+font-size: 0.85rem;
+color: var(--text-light);
+font-weight: 600;
+}
+
+.vip-balance-card b {
+font-size: 1.15rem;
+font-weight: 800;
+color: var(--primary);
+}
+
+.vip-list {
+display: flex;
+flex-direction: column;
+gap: 1.35rem;
+}
+
+.vip-card {
+position: relative;
+overflow: hidden;
+}
+
+.vip-card-disabled {
+opacity: 0.6;
+}
+
+.vip-card-coming-soon .vip-hero {
+filter: grayscale(0.55);
+}
+
+.vip-badge-best {
+position: absolute;
+top: 0.9rem;
+right: 0.9rem;
+z-index: 3;
+background: rgba(255,255,255,0.92);
+color: var(--primary-dark);
+font-size: 0.65rem;
+font-weight: 800;
+letter-spacing: 0.4px;
+text-transform: uppercase;
+padding: 0.3rem 0.6rem;
+border-radius: 20px;
+box-shadow: var(--shadow-sm);
+}
+
+.vip-badge-coming-soon {
+position: absolute;
+top: 0.9rem;
+right: 0.9rem;
+z-index: 3;
+background: var(--accent2);
+color: white;
+font-size: 0.65rem;
+font-weight: 800;
+letter-spacing: 0.4px;
+text-transform: uppercase;
+padding: 0.3rem 0.6rem;
+border-radius: 20px;
+box-shadow: var(--shadow-sm);
+}
+
+.vip-btn-coming-soon {
+background: var(--card-bg-alt);
+color: var(--text-light);
+border: 1.5px dashed var(--border);
+cursor: not-allowed;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.4rem;
+}
+
+.vip-lock-icon {
+font-size: 0.85rem;
+filter: grayscale(1) opacity(0.7);
+}
+
+.vip-hero {
+position: relative;
+padding: 1.5rem 1.4rem 1.75rem;
+background: var(--gradient-primary);
+background-size: cover;
+background-position: center;
+color: white;
+}
+
+.vip-hero-name {
+font-size: 0.85rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1px;
+opacity: 0.85;
+margin-bottom: 0.4rem;
+}
+
+.vip-hero-price {
+display: flex;
+align-items: baseline;
+gap: 0.4rem;
+}
+
+.vip-hero-price-value {
+font-size: 2.1rem;
+font-weight: 800;
+letter-spacing: -0.5px;
+line-height: 1;
+}
+
+.vip-hero-price-unit {
+font-size: 1rem;
+font-weight: 700;
+opacity: 0.85;
+}
+
+.vip-body {
+padding: 1.25rem 1.4rem 1.4rem;
+}
+
+.vip-daily-strip {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0.9rem 1.1rem;
+background: var(--card-bg-alt);
+border-radius: var(--radius-sm);
+margin-bottom: 1rem;
+}
+
+.vip-daily-label {
+font-size: 0.8rem;
+color: var(--text-light);
+font-weight: 600;
+}
+
+.vip-daily-value {
+font-size: 1.15rem;
+font-weight: 800;
+color: var(--green);
+}
+
+.vip-stat-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0.6rem;
+margin-bottom: 1.1rem;
+}
+
+.vip-stat-box {
+background: var(--card-bg-alt);
+border-radius: var(--radius-sm);
+padding: 0.7rem 0.8rem;
+text-align: center;
+}
+
+.vip-stat-box span {
+display: block;
+font-size: 0.65rem;
+color: var(--text-light);
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.3px;
+margin-bottom: 0.25rem;
+}
+
+.vip-stat-box b {
+font-size: 0.95rem;
+font-weight: 800;
+}
+
+.vip-stat-box.vip-stat-accent b {
+color: var(--primary);
+}
+
+/* ---------- Confirm & Success popups ---------- */
+.vip-confirm-summary {
+background: var(--card-bg-alt);
+border-radius: var(--radius-sm);
+padding: 1rem 1.1rem;
+margin-bottom: 1rem;
+}
+
+.vip-confirm-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0.45rem 0;
+font-size: 0.87rem;
+}
+
+.vip-confirm-row span {
+color: var(--text-light);
+}
+
+.vip-confirm-row b {
+font-weight: 700;
+}
+
+.vip-confirm-note {
+text-align: center;
+margin-bottom: 1rem;
+font-size: 0.76rem;
+color: var(--text-light);
+}
+
+.vip-success-card {
+text-align: center;
+position: relative;
+overflow: visible;
+}
+
+.vip-success-icon {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background: var(--gradient-primary);
+color: white;
+font-size: 1.6rem;
+font-weight: 800;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 0.85rem;
+animation: vipPopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes vipPopIn {
+0% { opacity: 0; transform: scale(0.5); }
+100% { opacity: 1; transform: scale(1); }
+}
+
+.vip-success-burst {
+position: absolute;
+top: 0;
+left: 50%;
+width: 0;
+height: 0;
+pointer-events: none;
+}
+
+.vip-confetti-piece {
+position: absolute;
+top: 0;
+left: 0;
+width: 7px;
+height: 10px;
+opacity: 0;
+animation: vipConfettiFall 0.9s ease-out both;
+animation-delay: var(--delay);
+}
+
+@keyframes vipConfettiFall {
+0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+100% { opacity: 0; transform: translate(var(--x), 140px) rotate(var(--rot)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.vip-confetti-piece, .vip-success-icon { animation: none; opacity: 1; }
+}
+</style>
+
+</head>
+<body class="page-body">
+
+
+
+
+
+
+<div class="page-wrap stagger">
+<div class="page-header">
+<h1>VIP Plans</h1>
+<button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+<span class="toggle-knob"></span>
+</button>
+</div>
+
+<div class="card-3d vip-balance-card">
+<span>Your Balance</span>
+<b><span data-counter="0.0" data-counter-suffix=" ETB">0 ETB</span></b>
+</div>
+
+<div class="vip-list stagger">
+
+<div class="vip-card card-3d tilt-card ">
+
+
+
+<div class="vip-hero" style="background-image: linear-gradient(180deg, rgba(20,16,10,0.15), rgba(20,16,10,0.55)), url('/static/uploads/vip_images/584f32ab14dd41b89db008ff1790db55.jpg');">
+<div class="vip-hero-name">VIP 1</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">1,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+42 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>1,890</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>189.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+<button type="button"
+class="btn btn-primary vip-buy-btn"
+
+data-plan-id="1"
+data-plan-name="VIP 1"
+data-plan-price="1,000"
+data-plan-daily="42"
+data-plan-days="45"
+data-plan-total="1,890"
+data-buy-url="/app/vip/buy/1">
+Buy Now
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card ">
+
+
+
+<div class="vip-hero" style="background-image: linear-gradient(180deg, rgba(20,16,10,0.15), rgba(20,16,10,0.55)), url('/static/uploads/vip_images/f7b2d610da3747a9a68c5d16ade660ad.jpg');">
+<div class="vip-hero-name">VIP 2</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">3,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+128 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>5,760</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>192.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button"
+class="btn btn-primary vip-buy-btn"
+
+data-plan-id="2"
+data-plan-name="VIP 2"
+data-plan-price="3,000"
+data-plan-daily="128"
+data-plan-days="45"
+data-plan-total="5,760"
+data-buy-url="/app/vip/buy/2">
+Buy Now
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card ">
+
+
+<div class="vip-badge-best">Best Value</div>
+
+
+<div class="vip-hero" style="background-image: linear-gradient(180deg, rgba(20,16,10,0.15), rgba(20,16,10,0.55)), url('/static/uploads/vip_images/aa45beb6ec5c4c349e5868d3dd239f3b.jpg');">
+<div class="vip-hero-name">VIP 3</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">5,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+215 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>9,675</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>193.5%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button"
+class="btn btn-primary vip-buy-btn"
+
+data-plan-id="3"
+data-plan-name="VIP 3"
+data-plan-price="5,000"
+data-plan-daily="215"
+data-plan-days="45"
+data-plan-total="9,675"
+data-buy-url="/app/vip/buy/3">
+Buy Now
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 4</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">15,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+654 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>29,430</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>196.2%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 5</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">25,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+1,095 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>49,275</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>197.1%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 6</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">50,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+2,200 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>45 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>99,000</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>198.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 7</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">75,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+3,315 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>50 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>165,750</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>221.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 8</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">100,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+4,440 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>55 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>244,200</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>244.2%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 9</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">250,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+11,250 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>60 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>675,000</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>270.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+<div class="vip-card card-3d tilt-card vip-card-coming-soon">
+
+
+<div class="vip-badge-coming-soon">Coming Soon</div>
+
+
+<div class="vip-hero" >
+<div class="vip-hero-name">VIP 10</div>
+<div class="vip-hero-price">
+<span class="vip-hero-price-value">500,000</span>
+<span class="vip-hero-price-unit">ETB</span>
+</div>
+</div>
+
+<div class="vip-body">
+<div class="vip-daily-strip">
+<span class="vip-daily-label">Daily Income</span>
+<span class="vip-daily-value">+25,000 ETB</span>
+</div>
+
+<div class="vip-stat-grid">
+<div class="vip-stat-box">
+<span>Period</span>
+<b>70 days</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>Total Return</span>
+<b>1,750,000</b>
+</div>
+<div class="vip-stat-box vip-stat-accent">
+<span>ROI</span>
+<b>350.0%</b>
+</div>
+<div class="vip-stat-box">
+<span>Limit</span>
+<b>0/2</b>
+</div>
+</div>
+
+
+<button type="button" class="btn vip-buy-btn vip-btn-coming-soon" disabled>
+<span class="vip-lock-icon">🔒</span> Coming Soon
+</button>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Step 1: Confirm purchase popup -->
+<div class="popup-overlay" id="vip-confirm-popup">
+<div class="popup-card card-3d">
+<h3>Confirm Purchase</h3>
+<div class="vip-confirm-summary">
+<div class="vip-confirm-row">
+<span>Plan</span>
+<b id="confirm-plan-name">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Price</span>
+<b id="confirm-plan-price">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Daily Income</span>
+<b id="confirm-plan-daily">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Duration</span>
+<b id="confirm-plan-days">--</b>
+</div>
+</div>
+<p class="vip-confirm-note">This amount will be deducted from your balance immediately.</p>
+<form method="POST" id="vip-confirm-form">
+<button type="submit" class="btn btn-primary">Confirm & Buy</button>
+</form>
+<button type="button" class="popup-close" id="vip-confirm-cancel">Cancel</button>
+</div>
+</div>
+
+<!-- Step 2: Success receipt popup -->
+<div class="popup-overlay" id="vip-success-popup">
+<div class="popup-card card-3d vip-success-card">
+<div class="vip-success-burst" id="vip-confetti"></div>
+<div class="vip-success-icon">✓</div>
+<h3>Purchase Successful</h3>
+<div class="vip-confirm-summary">
+<div class="vip-confirm-row">
+<span>Plan</span>
+<b id="success-plan-name">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Price</span>
+<b id="success-plan-price">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Daily Income</span>
+<b id="success-plan-daily">--</b>
+</div>
+<div class="vip-confirm-row">
+<span>Total Return</span>
+<b id="success-plan-total">--</b>
+</div>
+</div>
+<a href="#" class="btn btn-primary" id="vip-view-task-btn">View in Task</a>
+<button type="button" class="popup-close" id="vip-success-close">Close</button>
+</div>
+</div>
+
+
+<script src="/static/js/theme.js"></script>
+<script src="/static/js/interactive.js"></script>
+<script>
+// Auto-attach the form token to every POST form on the page, so
+// individual page templates don't each need a hidden input for it.
+(function () {
+var token = "05f1b4dee40ac81a6c8df4df0d768381b245d57dce580afc062f4b033fc3ee56";
+window.FORM_TOKEN = token;
+document.querySelectorAll("form").forEach(function (form) {
+var method = (form.getAttribute("method") || "GET").toUpperCase();
+if (method !== "POST") return;
+if (form.querySelector('input[name="csrf_token"]')) return;
+var input = document.createElement("input");
+input.type = "hidden";
+input.name = "csrf_token";
+input.value = token;
+form.appendChild(input);
+});
+})();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+const confirmPopup = document.getElementById("vip-confirm-popup");
+const confirmForm = document.getElementById("vip-confirm-form");
+const confirmCancel = document.getElementById("vip-confirm-cancel");
+const successPopup = document.getElementById("vip-success-popup");
+const successClose = document.getElementById("vip-success-close");
+const viewTaskBtn = document.getElementById("vip-view-task-btn");
+
+function navigateTo(url) {
+if (window.parent && window.parent !== window) {
+window.parent.postMessage({ type: "navigate", url: url }, "*");
+} else {
+window.location.href = url;
+}
+}
+
+viewTaskBtn.addEventListener("click", (e) => {
+e.preventDefault();
+navigateTo("/app/task");
+});
+
+let pendingPlan = null;
+
+document.querySelectorAll(".vip-buy-btn").forEach((btn) => {
+if (btn.disabled) return;
+btn.addEventListener("click", () => {
+pendingPlan = {
+name: btn.dataset.planName,
+price: btn.dataset.planPrice,
+daily: btn.dataset.planDaily,
+days: btn.dataset.planDays,
+total: btn.dataset.planTotal,
+buyUrl: btn.dataset.buyUrl,
+};
+
+document.getElementById("confirm-plan-name").textContent = pendingPlan.name;
+document.getElementById("confirm-plan-price").textContent = pendingPlan.price + " ETB";
+document.getElementById("confirm-plan-daily").textContent = pendingPlan.daily + " ETB";
+document.getElementById("confirm-plan-days").textContent = pendingPlan.days + " days";
+confirmForm.action = pendingPlan.buyUrl;
+
+confirmPopup.classList.add("visible");
+});
+});
+
+confirmCancel.addEventListener("click", () => {
+confirmPopup.classList.remove("visible");
+pendingPlan = null;
+});
+confirmPopup.addEventListener("click", (e) => {
+if (e.target === confirmPopup) confirmPopup.classList.remove("visible");
+});
+
+confirmForm.addEventListener("submit", async (e) => {
+e.preventDefault();
+if (!pendingPlan) return;
+
+const submitBtn = confirmForm.querySelector("button");
+const originalText = submitBtn.textContent;
+submitBtn.disabled = true;
+submitBtn.textContent = "Processing...";
+
+try {
+const res = await fetch(pendingPlan.buyUrl, {
+method: "POST",
+headers: {
+"X-Requested-With": "XMLHttpRequest",
+"X-FormToken": window.FORM_TOKEN || "",
+},
+});
+
+if (res.ok) {
+confirmPopup.classList.remove("visible");
+
+document.getElementById("success-plan-name").textContent = pendingPlan.name;
+document.getElementById("success-plan-price").textContent = pendingPlan.price + " ETB";
+document.getElementById("success-plan-daily").textContent = pendingPlan.daily + " ETB";
+document.getElementById("success-plan-total").textContent = pendingPlan.total + " ETB";
+
+successPopup.classList.add("visible");
+fireConfetti();
+} else {
+const realForm = document.createElement("form");
+realForm.method = "POST";
+realForm.action = pendingPlan.buyUrl;
+const csrfInput = document.createElement("input");
+csrfInput.type = "hidden";
+csrfInput.name = "csrf_token";
+csrfInput.value = window.FORM_TOKEN || "";
+realForm.appendChild(csrfInput);
+document.body.appendChild(realForm);
+realForm.submit();
+}
+} catch (err) {
+const realForm = document.createElement("form");
+realForm.method = "POST";
+realForm.action = pendingPlan.buyUrl;
+const csrfInput = document.createElement("input");
+csrfInput.type = "hidden";
+csrfInput.name = "csrf_token";
+csrfInput.value = window.FORM_TOKEN || "";
+realForm.appendChild(csrfInput);
+document.body.appendChild(realForm);
+realForm.submit();
+} finally {
+submitBtn.disabled = false;
+submitBtn.textContent = originalText;
+}
+});
+
+successClose.addEventListener("click", () => {
+successPopup.classList.remove("visible");
+window.location.reload();
+});
+
+function fireConfetti() {
+const burst = document.getElementById("vip-confetti");
+burst.innerHTML = "";
+const colors = ["#e0a94e", "#b4762a", "#9089d1", "#5cb975"];
+
+for (let i = 0; i < 24; i++) {
+const piece = document.createElement("span");
+piece.className = "vip-confetti-piece";
+piece.style.setProperty("--x", (Math.random() * 200 - 100) + "px");
+piece.style.setProperty("--rot", (Math.random() * 720 - 360) + "deg");
+piece.style.setProperty("--delay", (Math.random() * 0.15) + "s");
+piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+burst.appendChild(piece);
+}
+}
+});
+</script>
+
+</body>
+</html>

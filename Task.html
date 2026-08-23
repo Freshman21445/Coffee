@@ -1,0 +1,72 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Task</title>
+<script>
+    (function () {
+        var t = localStorage.getItem("thecoffee-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", t);
+    })();
+</script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/pages.css">
+<link rel="stylesheet" href="/static/css/pages_extra.css">
+<link rel="stylesheet" href="/static/css/vip_task.css">
+<link rel="stylesheet" href="/static/css/team_me_invite.css">
+<link rel="stylesheet" href="/static/css/final_pages.css">
+<link rel="stylesheet" href="/static/css/wizard.css">
+
+</head>
+<body class="page-body">
+
+
+    
+
+
+
+<div class="page-wrap stagger">
+    <div class="page-header">
+        <h1>My Tasks</h1>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <span class="toggle-knob"></span>
+        </button>
+    </div>
+
+    
+    <div class="card-3d" style="padding: 2.5rem 1.5rem; text-align: center; color: var(--text-light);">
+        <p>You don't have any VIP plans yet.</p>
+        <a href="#" data-navigate="/app/vip" class="btn btn-primary" style="margin-top: 1rem; width: auto; display: inline-block; padding: 0.7rem 1.5rem;">Browse VIP Plans</a>
+    </div>
+    
+</div>
+
+
+<script src="/static/js/theme.js"></script>
+<script src="/static/js/interactive.js"></script>
+<script>
+    // Auto-attach the form token to every POST form on the page, so
+    // individual page templates don't each need a hidden input for it.
+    (function () {
+        var token = "05f1b4dee40ac81a6c8df4df0d768381b245d57dce580afc062f4b033fc3ee56";
+        window.FORM_TOKEN = token;
+        document.querySelectorAll("form").forEach(function (form) {
+            var method = (form.getAttribute("method") || "GET").toUpperCase();
+            if (method !== "POST") return;
+            if (form.querySelector('input[name="csrf_token"]')) return;
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "csrf_token";
+            input.value = token;
+            form.appendChild(input);
+        });
+    })();
+</script>
+
+<script src="/static/js/nav_helper.js"></script>
+<script src="/static/js/task.js"></script>
+
+</body>
+</html>

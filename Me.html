@@ -1,0 +1,165 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Me</title>
+<script>
+    (function () {
+        var t = localStorage.getItem("thecoffee-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", t);
+    })();
+</script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/pages.css">
+<link rel="stylesheet" href="/static/css/pages_extra.css">
+<link rel="stylesheet" href="/static/css/vip_task.css">
+<link rel="stylesheet" href="/static/css/team_me_invite.css">
+<link rel="stylesheet" href="/static/css/final_pages.css">
+<link rel="stylesheet" href="/static/css/wizard.css">
+
+</head>
+<body class="page-body">
+
+
+    
+
+
+
+<div class="page-wrap stagger">
+    <div class="page-header">
+        <h1>Me</h1>
+        <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <span class="toggle-knob"></span>
+        </button>
+    </div>
+
+    <div class="me-identity">
+        <div class="me-avatar">0</div>
+        <div>
+            <div class="me-phone">0712199241</div>
+            <div class="me-id">ID: 000642</div>
+            <span class="me-vip-badge me-vip-badge-none">
+                <span class="me-vip-badge-icon">♛</span>VIP 0
+            </span>
+        </div>
+    </div>
+
+    <div class="balance-3d-card tilt-card">
+        <div class="balance-3d-glow"></div>
+        <span class="balance-3d-label">Total Balance</span>
+        <div class="balance-3d-value"><span data-counter="0.0" data-counter-suffix=" ETB">0 ETB</span></div>
+    </div>
+
+    <div class="me-substats me-substats-3">
+        <div class="me-substat-card">
+            <span>Recharged</span>
+            <b><span data-counter="0.0" data-counter-decimals="0" data-counter-suffix=" ETB">0 ETB</span></b>
+        </div>
+        <div class="me-substat-card">
+            <span>Withdrawn</span>
+            <b><span data-counter="0.0" data-counter-decimals="0" data-counter-suffix=" ETB">0 ETB</span></b>
+        </div>
+        <div class="me-substat-card">
+            <span>Points</span>
+            <b><span data-counter="0" data-counter-decimals="0">0</span></b>
+        </div>
+    </div>
+
+    <div class="section-title">Account</div>
+    <div class="me-menu card-3d">
+        <a href="#" class="me-menu-item" data-navigate="/app/personalinfo">
+            <span class="me-menu-icon">P</span>
+            <span class="me-menu-text">Personal Info</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+        <a href="#" class="me-menu-item" data-navigate="/app/bindbank">
+            <span class="me-menu-icon">B</span>
+            <span class="me-menu-text">Bind Bank</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+        <a href="#" class="me-menu-item" data-navigate="/app/record">
+            <span class="me-menu-icon">R</span>
+            <span class="me-menu-text">Record</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+    </div>
+
+    <div class="section-title">Earnings</div>
+    <div class="me-menu card-3d">
+        <a href="#" class="me-menu-item" data-navigate="/app/salary">
+            <span class="me-menu-icon">S</span>
+            <span class="me-menu-text">Salary</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+        <a href="#" class="me-menu-item" data-navigate="/app/points-exchange">
+            <span class="me-menu-icon">P</span>
+            <span class="me-menu-text">Points Exchange</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+        <a href="#" class="me-menu-item" data-navigate="/app/invite">
+            <span class="me-menu-icon">I</span>
+            <span class="me-menu-text">Invite</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+    </div>
+
+    <div class="section-title">More</div>
+    <div class="me-menu card-3d">
+        <a href="#" class="me-menu-item" data-navigate="/app/about">
+            <span class="me-menu-icon">A</span>
+            <span class="me-menu-text">About</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+        <a href="#" class="me-menu-item" data-navigate="/app/download">
+            <span class="me-menu-icon">D</span>
+            <span class="me-menu-text">Download App</span>
+            <span class="me-menu-arrow">›</span>
+        </a>
+    </div>
+
+    <div class="card-3d me-menu me-menu-logout-wrap">
+        <a href="/logout" class="me-menu-item me-logout" id="me-logout-link">
+            <span class="me-menu-text">Logout</span>
+        </a>
+    </div>
+</div>
+
+
+<script src="/static/js/theme.js"></script>
+<script src="/static/js/interactive.js"></script>
+<script>
+    // Auto-attach the form token to every POST form on the page, so
+    // individual page templates don't each need a hidden input for it.
+    (function () {
+        var token = "05f1b4dee40ac81a6c8df4df0d768381b245d57dce580afc062f4b033fc3ee56";
+        window.FORM_TOKEN = token;
+        document.querySelectorAll("form").forEach(function (form) {
+            var method = (form.getAttribute("method") || "GET").toUpperCase();
+            if (method !== "POST") return;
+            if (form.querySelector('input[name="csrf_token"]')) return;
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "csrf_token";
+            input.value = token;
+            form.appendChild(input);
+        });
+    })();
+</script>
+
+<script src="/static/js/nav_helper.js"></script>
+<script>
+    document.getElementById("me-logout-link").addEventListener("click", (e) => {
+        // Logout should break out of the iframe entirely, back to the full auth page.
+        e.preventDefault();
+        if (window.parent && window.parent !== window) {
+            window.parent.location.href = "/logout";
+        } else {
+            window.location.href = "/logout";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Home</title>
+<script>
+    (function () {
+        var t = localStorage.getItem("thecoffee-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", t);
+    })();
+</script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/pages.css">
+<link rel="stylesheet" href="/static/css/pages_extra.css">
+<link rel="stylesheet" href="/static/css/vip_task.css">
+<link rel="stylesheet" href="/static/css/team_me_invite.css">
+<link rel="stylesheet" href="/static/css/final_pages.css">
+<link rel="stylesheet" href="/static/css/wizard.css">
+
+<style>
+    /* ---------- Home top bar ---------- */
+    .home-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.25rem 0 1rem;
+    }
+
+    .home-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 800;
+        font-size: 1.05rem;
+    }
+
+    .home-logo-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        color: white;
+        font-weight: 800;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        flex-shrink: 0;
+    }
+
+    .home-topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .home-bell-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .home-bell-btn:active {
+        transform: scale(0.9);
+    }
+
+    .home-bell-icon {
+        font-size: 1.05rem;
+        filter: grayscale(0.3);
+    }
+
+    .home-bell-badge {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        min-width: 17px;
+        height: 17px;
+        padding: 0 3px;
+        border-radius: 10px;
+        background: var(--red);
+        color: white;
+        font-size: 0.6rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 2px var(--card-bg);
+        animation: homeBellBadgeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes homeBellBadgeIn {
+        0% { opacity: 0; transform: scale(0.5); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .home-bell-badge { animation: none; }
+    }
+
+    /* ---------- Banner ---------- */
+    .home-banner {
+        position: relative;
+        overflow: hidden;
+        padding: 1.75rem 1.5rem;
+        background: var(--gradient-primary);
+        margin-bottom: 1.25rem;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+    }
+
+    .home-banner-content h2 {
+        color: white;
+        font-size: 1.35rem;
+        margin-bottom: 0.4rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .home-banner-content p {
+        color: rgba(255,255,255,0.85);
+        font-size: 0.88rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .home-banner-glow {
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+    }
+
+    /* ---------- Feature grid (5 icons) ---------- */
+    .home-feature-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .home-feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+    }
+
+    .home-feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        font-weight: 800;
+        box-shadow: var(--shadow-md), var(--shadow-inset);
+        transition: transform 0.15s ease;
+    }
+
+    .home-feature-item:active .home-feature-icon {
+        transform: scale(0.92);
+    }
+
+    .home-feature-icon-a { background: var(--gradient-primary); color: white; }
+    .home-feature-icon-b { background: var(--gradient-gold); color: #451a03; }
+    .home-feature-icon-c { background: var(--card-bg-alt); color: var(--primary); border: 1.5px solid var(--border); }
+    .home-feature-icon-d { background: var(--gradient-primary); color: white; opacity: 0.88; }
+    .home-feature-icon-e { background: var(--card-bg-alt); color: var(--gold); border: 1.5px solid var(--border); }
+
+    .home-feature-item span {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--text-light);
+        text-align: center;
+    }
+
+    /* ---------- Section title ---------- */
+    .home-section-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin: 0 0.1rem 0.6rem;
+        color: var(--text);
+    }
+
+    /* ---------- Rules list ---------- */
+    .home-rules-card {
+        padding: 0.4rem 0;
+        margin-bottom: 1.25rem;
+    }
+
+    .home-rule-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.7rem 1.1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .home-rule-row:last-child {
+        border-bottom: none;
+    }
+
+    .home-rule-label {
+        font-size: 0.82rem;
+        color: var(--text-light);
+    }
+
+    .home-rule-value {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    /* ---------- About blurb ---------- */
+    .home-about-card {
+        padding: 1.1rem 1.15rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .home-about-card p {
+        font-size: 0.83rem;
+        color: var(--text-light);
+        line-height: 1.65;
+    }
+
+    /* ---------- Stats strip ---------- */
+    .home-stats-strip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        padding: 1.1rem 0.5rem;
+    }
+
+    .home-stats-divider {
+        width: 1px;
+        height: 28px;
+        background: var(--border);
+    }
+
+    .home-stats-item {
+        text-align: center;
+    }
+
+    .home-stats-value {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    .home-stats-label {
+        font-size: 0.7rem;
+        color: var(--text-light);
+        margin-top: 0.2rem;
+    }
+
+    /* ---------- Welcome popup ---------- */
+    .home-popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 14, 26, 0.55);
+        backdrop-filter: blur(3px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        padding: 1.5rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+
+    .home-popup-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .home-popup-card {
+        max-width: 340px;
+        width: 100%;
+        padding: 1.75rem 1.5rem;
+        text-align: center;
+        transform: scale(0.9) translateY(10px);
+        transition: transform 0.25s ease;
+    }
+
+    .home-popup-overlay.visible .home-popup-card {
+        transform: scale(1) translateY(0);
+    }
+
+    .home-popup-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .home-popup-card p {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-bottom: 1.25rem;
+        line-height: 1.6;
+    }
+
+    .home-popup-channel-btn {
+        margin-bottom: 0.75rem;
+    }
+
+    .home-popup-close {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        padding: 0.4rem;
+    }
+</style>
+
+</head>
+<body class="page-body">
+
+
+    
+
+
+
+<div class="page-wrap home-page stagger">
+
+    <!-- Top bar -->
+    <div class="home-topbar">
+        <div class="home-brand">
+            <div class="home-logo-circle">S</div>
+            <span>COFFEE TRADE COMPANY </span>
+        </div>
+        <div class="home-topbar-actions">
+            <a href="#" class="home-bell-btn" id="home-bell-btn" data-navigate="/app/notifications" aria-label="Notifications">
+                <span class="home-bell-icon">🔔</span>
+                
+            </a>
+            <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span class="toggle-knob"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="home-banner card-3d tilt-card">
+        <div class="home-banner-content">
+            <h2>Grow Your Money Daily</h2>
+            <p>Invest in a VIP plan and earn automatically every day.</p>
+        </div>
+        <div class="home-banner-glow"></div>
+    </div>
+
+    <!-- 5 feature actions -->
+    <div class="home-feature-grid">
+        <a href="#" class="home-feature-item" data-target="recharge">
+            <div class="home-feature-icon home-feature-icon-a">R</div>
+            <span>Recharge</span>
+        </a>
+        <a href="#" class="home-feature-item" data-target="withdraw">
+            <div class="home-feature-icon home-feature-icon-b">W</div>
+            <span>Withdraw</span>
+        </a>
+        <a href="#" class="home-feature-item" data-target="checkin">
+            <div class="home-feature-icon home-feature-icon-c">C</div>
+            <span>Check-in</span>
+        </a>
+        <a href="#" class="home-feature-item" data-target="gift">
+            <div class="home-feature-icon home-feature-icon-d">G</div>
+            <span>Gift Code</span>
+        </a>
+        <a href="#" class="home-feature-item" data-target="service">
+            <div class="home-feature-icon home-feature-icon-e">S</div>
+            <span>Service</span>
+        </a>
+    </div>
+
+    <!-- Rules -->
+    <div class="home-section-title">Rules</div>
+    <div class="home-rules-card card-3d">
+        <div class="home-rule-row">
+            <span class="home-rule-label">Minimum Recharge</span>
+            <span class="home-rule-value">1,000 ETB</span>
+        </div>
+        <div class="home-rule-row">
+            <span class="home-rule-label">Minimum Withdrawal</span>
+            <span class="home-rule-value">250 ETB</span>
+        </div>
+        <div class="home-rule-row">
+            <span class="home-rule-label">Daily Check-in Reward</span>
+            <span class="home-rule-value">5 pts</span>
+        </div>
+    </div>
+
+    <!-- About -->
+    <div class="home-section-title">About COFFEE TRADE COMPANY </div>
+    <div class="home-about-card card-3d">
+        <p>The Coffee trade company is a platform that lets you grow your money through simple daily-return investment plans.</p>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="home-stats-strip">
+        <div class="home-stats-item">
+            <div class="home-stats-value">24/7</div>
+            <div class="home-stats-label">Support</div>
+        </div>
+        <div class="home-stats-divider"></div>
+        <div class="home-stats-item">
+            <div class="home-stats-value">100%</div>
+            <div class="home-stats-label">Secure</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Welcome popup -->
+<div class="home-popup-overlay" id="welcome-popup">
+    <div class="home-popup-card card-3d">
+        <h3>Welcome to COFFEE TRADE COMPANY </h3>
+        <p>Welcome!
+Complete your first recharge to start earning daily profit.</p>
+        <a href="https://t.me/wwwcoffeetrade" target="_blank" class="btn btn-primary home-popup-channel-btn">Join Official Channel</a>
+        <button type="button" class="home-popup-close" id="popup-close-btn">Continue</button>
+    </div>
+</div>
+
+
+
+<script src="/static/js/theme.js"></script>
+<script src="/static/js/interactive.js"></script>
+<script>
+    // Auto-attach the form token to every POST form on the page, so
+    // individual page templates don't each need a hidden input for it.
+    (function () {
+        var token = "05f1b4dee40ac81a6c8df4df0d768381b245d57dce580afc062f4b033fc3ee56";
+        window.FORM_TOKEN = token;
+        document.querySelectorAll("form").forEach(function (form) {
+            var method = (form.getAttribute("method") || "GET").toUpperCase();
+            if (method !== "POST") return;
+            if (form.querySelector('input[name="csrf_token"]')) return;
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "csrf_token";
+            input.value = token;
+            form.appendChild(input);
+        });
+    })();
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // ---------- Feature icon routing (parent shell swaps iframe src) ----------
+        const targetRoutes = {
+            recharge: "/app/recharge",
+            withdraw: "/app/withdraw",
+            checkin: "/app/checkin",
+            gift: "/app/gift",
+            service: "/app/service",
+        };
+
+        document.querySelectorAll(".home-feature-item").forEach((item) => {
+            item.addEventListener("click", (e) => {
+                e.preventDefault();
+                const target = item.dataset.target;
+                const url = targetRoutes[target];
+                if (url && window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: "navigate", url: url }, "*");
+                } else if (url) {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // ---------- Bell icon: open notifications feed ----------
+        const bellBtn = document.getElementById("home-bell-btn");
+        if (bellBtn) {
+            bellBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const url = bellBtn.dataset.navigate;
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: "navigate", url: url }, "*");
+                } else {
+                    window.location.href = url;
+                }
+            });
+        }
+
+        // ---------- Welcome popup (show once per browser session) ----------
+        const popup = document.getElementById("welcome-popup");
+        const closeBtn = document.getElementById("popup-close-btn");
+
+        if (popup) {
+            const alreadyShown = sessionStorage.getItem("thecoffee-popup-shown");
+            if (!alreadyShown) {
+                setTimeout(() => popup.classList.add("visible"), 350);
+                sessionStorage.setItem("thecoffee-popup-shown", "1");
+            }
+
+            closeBtn.addEventListener("click", () => {
+                popup.classList.remove("visible");
+            });
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) popup.classList.remove("visible");
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

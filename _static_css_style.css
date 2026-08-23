@@ -1,0 +1,348 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><style>:root {
+    /* ---- Brand accents: gold primary, indigo secondary ---- */
+    --primary: #b4762a;
+    --primary-dark: #8f5c1f;
+    --primary-light: #e0a94e;
+    --accent2: #4b3f8f;
+    --accent2-light: #7267c2;
+    --gold: #b4762a;
+    --gold-light: #e0a94e;
+    --green: #3a8a4c;
+    --red: #c0392b;
+
+    /* ---- Warm off-white base (light) â€" its literal inverse is dark mode below ---- */
+    --bg: #f7f3ec;
+    --bg-secondary: #efe7d8;
+    --card-bg: #fffdf9;
+    --card-bg-alt: #f3ecdf;
+    --border: #e5dac5;
+    --text: #2b2013;
+    --text-light: #7a6d57;
+    --radius: 18px;
+    --radius-sm: 12px;
+
+    --shadow-sm: 0 1px 2px rgba(43, 32, 19, 0.07), 0 1px 1px rgba(43, 32, 19, 0.05);
+    --shadow-md: 0 6px 16px rgba(43, 32, 19, 0.10), 0 2px 6px rgba(43, 32, 19, 0.06);
+    --shadow-lg: 0 18px 40px rgba(43, 32, 19, 0.16), 0 6px 14px rgba(43, 32, 19, 0.10);
+    --shadow-xl: 0 28px 60px rgba(43, 32, 19, 0.22), 0 10px 20px rgba(43, 32, 19, 0.12);
+    --shadow-inset: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 5px rgba(43,32,19,0.05);
+    --shadow-card-3d: 0 2px 0 rgba(43,32,19,0.04), 0 10px 24px rgba(43, 32, 19, 0.12);
+
+    --gradient-primary: linear-gradient(135deg, #e0a94e 0%, #b4762a 55%, #8f5c1f 100%);
+    --gradient-gold: linear-gradient(135deg, #f3d38a 0%, #d99a3d 55%, #b4762a 100%);
+    --gradient-accent2: linear-gradient(135deg, #7267c2 0%, #4b3f8f 60%, #362d6b 100%);
+    --gradient-card: linear-gradient(155deg, #fffdf9 0%, #f3ecdf 100%);
+    --gradient-mesh-1: radial-gradient(circle at 15% 20%, rgba(180,118,42,0.16), transparent 55%);
+    --gradient-mesh-2: radial-gradient(circle at 85% 15%, rgba(75,63,143,0.13), transparent 55%);
+    --gradient-mesh-3: radial-gradient(circle at 50% 90%, rgba(224,169,78,0.14), transparent 55%);
+
+    color-scheme: light;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* True inverse of the light palette above */
+[data-theme="dark"] {
+    --primary: #e0a94e;
+    --primary-dark: #c78d34;
+    --primary-light: #f3d38a;
+    --accent2: #9089d1;
+    --accent2-light: #b3aee0;
+    --gold: #e0a94e;
+    --gold-light: #f3d38a;
+    --green: #5cb975;
+    --red: #e07a6c;
+
+    --bg: #14100a;
+    --bg-secondary: #201a10;
+    --card-bg: #1e1810;
+    --card-bg-alt: #292215;
+    --border: #3a3020;
+    --text: #f2ece0;
+    --text-light: #a8a08c;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.35);
+    --shadow-md: 0 6px 18px rgba(0,0,0,0.45);
+    --shadow-lg: 0 20px 44px rgba(0,0,0,0.55);
+    --shadow-xl: 0 30px 64px rgba(0,0,0,0.62);
+    --shadow-inset: inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -2px 5px rgba(0,0,0,0.25);
+    --shadow-card-3d: 0 2px 0 rgba(0,0,0,0.25), 0 12px 28px rgba(0,0,0,0.5);
+
+    --gradient-primary: linear-gradient(135deg, #f3d38a 0%, #e0a94e 55%, #c78d34 100%);
+    --gradient-gold: linear-gradient(135deg, #f3d38a 0%, #e0a94e 60%, #b4762a 100%);
+    --gradient-accent2: linear-gradient(135deg, #b3aee0 0%, #9089d1 60%, #6b5fb0 100%);
+    --gradient-card: linear-gradient(155deg, #221b12 0%, #1a150e 100%);
+    --gradient-mesh-1: radial-gradient(circle at 15% 20%, rgba(224,169,78,0.14), transparent 55%);
+    --gradient-mesh-2: radial-gradient(circle at 85% 15%, rgba(144,137,209,0.12), transparent 55%);
+    --gradient-mesh-3: radial-gradient(circle at 50% 90%, rgba(224,169,78,0.10), transparent 55%);
+
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    position: relative;
+}
+
+/* ---------- Ambient drifting gradient mesh (background atmosphere) ---------- */
+.ambient-mesh {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--gradient-mesh-1), var(--gradient-mesh-2), var(--gradient-mesh-3);
+    background-repeat: no-repeat;
+    animation: meshDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes meshDrift {
+    0%   { background-position: 0% 0%, 100% 0%, 50% 100%; }
+    50%  { background-position: 8% 12%, 92% 10%, 45% 88%; }
+    100% { background-position: 0% 5%, 100% 4%, 55% 95%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-mesh { animation: none; }
+}
+
+/* ---------- Global entrance animation utilities ---------- */
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.92); }
+    70%  { opacity: 1; transform: scale(1.015); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.reveal {
+    animation: fadeSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal-pop {
+    animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger helper â€" apply alongside .reveal; increments delay per nth-child */
+.stagger > * {
+    animation: fadeSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.03s; }
+.stagger > *:nth-child(2) { animation-delay: 0.09s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.21s; }
+.stagger > *:nth-child(5) { animation-delay: 0.27s; }
+.stagger > *:nth-child(6) { animation-delay: 0.33s; }
+.stagger > *:nth-child(7) { animation-delay: 0.39s; }
+.stagger > *:nth-child(8) { animation-delay: 0.45s; }
+.stagger > *:nth-child(9) { animation-delay: 0.51s; }
+.stagger > *:nth-child(10) { animation-delay: 0.57s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-pop, .stagger > * { animation: none; }
+}
+
+/* Scroll-triggered reveal: hidden until JS adds .reveal on intersection */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(18px);
+}
+.reveal-on-scroll.reveal {
+    animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 3D tilt-on-hover card (paired with interactive.js) */
+.tilt-card {
+    transition: transform 0.15s ease-out, box-shadow 0.25s ease;
+    transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll { opacity: 1; transform: none; }
+    .tilt-card { transition: none; }
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Flash messages (shared) */
+.flash-messages {
+    margin-bottom: 1rem;
+}
+
+.flash {
+    background: var(--card-bg-alt);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Buttons (shared) â€" raised 3D style with tactile press physics */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+    transition-duration: 0.08s;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: #2b2013;
+    box-shadow: 0 6px 18px rgba(180, 118, 42, 0.32), var(--shadow-inset);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 24px rgba(180, 118, 42, 0.4);
+}
+
+.btn-outline {
+    background: var(--card-bg);
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-outline:hover {
+    background: var(--card-bg-alt);
+}
+
+.btn-gold {
+    background: var(--gradient-gold);
+    color: #2b2013;
+    box-shadow: 0 6px 18px rgba(217, 154, 61, 0.32), var(--shadow-inset);
+}
+
+.btn-accent2 {
+    background: var(--gradient-accent2);
+    color: white;
+    box-shadow: 0 6px 18px rgba(75, 63, 143, 0.35), var(--shadow-inset);
+}
+
+/* Reusable 3D card â€" depth on hover, tactile on press */
+.card-3d {
+    background: var(--gradient-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card-3d);
+    border: 1px solid var(--border);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+    will-change: transform;
+}
+
+.card-3d:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Theme toggle switch */
+.theme-toggle {
+    width: 52px;
+    height: 30px;
+    border-radius: 30px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-inset);
+}
+
+.theme-toggle .toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gradient-gold);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle .toggle-knob {
+    transform: translateX(22px);
+    background: var(--gradient-accent2);
+}
+
+.theme-toggle:active .toggle-knob {
+    transform: scale(0.88);
+}
+
+[data-theme="dark"] .theme-toggle:active .toggle-knob {
+    transform: translateX(22px) scale(0.88);
+}
+
+/* Forms (shared) */
+form label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--card-bg);
+    color: var(--text);
+    font-family: inherit;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}</style>
