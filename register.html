@@ -1,27 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Register</title>
-    <base href="/Coffee/">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body style="padding: 2rem; max-width: 400px; margin: 2rem auto;">
-    <div class="card-3d" style="padding: 2rem;">
-        <h1>Create Account</h1>
-        <form id="register-form">
-            <label>Username</label>
-            <input type="text" id="username" required>
-            <label>Email</label>
-            <input type="email" id="email" required>
-            <label>Password</label>
-            <input type="password" id="password" required>
-            <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Register</button>
-        </form>
-        <p style="margin-top:1rem;">Already have an account? <a href="login.html">Login</a></p>
-        <p style="font-size:0.8rem; color:var(--text-light); margin-top:1rem;">🎉 Free 1,000 ETB bonus on registration!</p>
-    </div>
     <script>
-        // 🔴 CHANGE THIS: Replace with your actual Worker URL
+        (function () {
+            var t = localStorage.getItem("thecoffee-theme") || "dark";
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <style>
+        .register-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .register-card {
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+        .register-card h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .register-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .register-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .register-bonus {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: var(--card-bg-alt);
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+<body class="page-body">
+    <div class="register-container">
+        <div class="card-3d register-card">
+            <h1>☕ Create Account</h1>
+            <form id="register-form">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Your name" required>
+                <label>Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <div class="register-footer">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+            <div class="register-bonus">
+                🎉 You get 1,000 ETB free on registration!
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/theme.js"></script>
+    <script src="static/js/interactive.js"></script>
+
+    <script>
         const WORKER_URL = 'https://little-wood-f0d3.abrahamtariku1997.workers.dev';
 
         document.getElementById('register-form').addEventListener('submit', async (e) => {
