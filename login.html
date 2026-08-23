@@ -1,23 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body style="padding: 2rem; max-width: 400px; margin: 2rem auto;">
-    <div class="card-3d" style="padding: 2rem;">
-        <h1>Login</h1>
-        <form id="login-form">
-            <label>Email</label>
-            <input type="email" id="email" required>
-            <label>Password</label>
-            <input type="password" id="password" required>
-            <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Login</button>
-        </form>
-        <p style="margin-top:1rem;">Don't have an account? <a href="register.html">Register</a></p>
-    </div>
+    <!-- Apply saved theme immediately -->
     <script>
-        // 🔴 CHANGE THIS: Replace with your actual Worker URL
+        (function () {
+            var t = localStorage.getItem("thecoffee-theme") || "dark";
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
+    <!-- CSS: No leading slash! -->
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <!-- Login page specific styles -->
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+        .login-card h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .login-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .login-bonus {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: var(--card-bg-alt);
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+<body class="page-body">
+    <div class="login-container">
+        <div class="card-3d login-card">
+            <h1>☕ Login</h1>
+            <form id="login-form">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div class="login-footer">
+                Don't have an account? <a href="register.html">Register</a>
+            </div>
+            <div class="login-bonus">
+                🎉 New users get 1,000 ETB free!
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔴 JavaScript: These bring the ambient background and theme -->
+    <script src="static/js/theme.js"></script>
+    <script src="static/js/interactive.js"></script>
+
+    <script>
+        // Your Worker URL
         const WORKER_URL = 'https://little-wood-f0d3.abrahamtariku1997.workers.dev';
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
