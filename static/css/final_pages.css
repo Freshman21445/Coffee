@@ -1,1 +1,179 @@
 
+
+/* ==========================================================
+   Record page tabs
+   ========================================================== */
+
+.record-tabs {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    padding-bottom: 0.2rem;
+}
+
+.record-tab {
+    flex-shrink: 0;
+    padding: 0.5rem 0.95rem;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.record-tab.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+/* ==========================================================
+   Salary page
+   ========================================================== */
+
+.salary-hero {
+    text-align: center;
+    padding: 1.75rem 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.salary-hero-value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.salary-hero-label {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+.salary-tier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.salary-tier-card {
+    padding: 1.1rem;
+}
+
+.salary-tier-started {
+    opacity: 0.75;
+}
+
+.salary-tier-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.salary-tier-req {
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+.salary-tier-reward {
+    font-size: 0.82rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin-top: 0.15rem;
+}
+
+/* ==========================================================
+   About page
+   ========================================================== */
+
+.about-content-card {
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.about-content-card p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.about-table-wrap {
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.about-profit-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.about-profit-table th, .about-profit-table td {
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    font-size: 0.78rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.about-profit-table th {
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    background: var(--card-bg-alt);
+}
+
+.about-profit-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==========================================================
+   Download / PWA page
+   ========================================================== */
+
+.download-hero {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.download-app-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 800;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.download-hero h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.download-hero p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.ios-instructions {
+    padding: 1.1rem;
+}
+
+.ios-steps {
+    padding-left: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 2;
+}
